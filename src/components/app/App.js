@@ -1,21 +1,33 @@
 import React, {useState} from 'react';
-import logo from '../../assets/logo.svg';
 import './App.css';
 import UserTable from "../usertable/UserTable";
 import AddUserForm from "../adduserform/AddUserForm";
+import EditUserForm from '../edituserform/EditUserForm';
 
 
 const App = () => {
+    // ---------------------------
     var faker = require('faker');
-    const usersData = [
-        { id: 1, name: faker.name.findName(), username: faker.internet.userName() },
-        { id: 2, name: faker.name.findName(), username: faker.internet.userName() },
-        { id: 3, name: faker.name.findName(), username: faker.internet.userName() },
-        { id: 4, name: faker.name.findName(), username: faker.internet.userName() },
-        { id: 5, name: faker.name.findName(), username: faker.internet.userName() },
-        { id: 6, name: faker.name.findName(), username: faker.internet.userName() },
-        { id: 7, name: faker.name.findName(), username: faker.internet.userName() },
-    ];
+    // random generator
+    const generator = (schema, min = 1, max) => {
+        max = max || min
+        return Array.from({ length: max }).map(() => Object.keys(schema).reduce((entity, key) => {
+            entity[key] = faker.fake(schema[key])
+            return entity
+        }, {}))
+    };
+
+    // your schema
+    const clientsSchema = {
+        id: '{{random.number}}',
+        name: '{{name.findName}}',
+        username: '{{internet.userName}}'
+    };
+
+    // generate random clients between 5 and 20 units, based on client schema defined above
+    const data = generator(clientsSchema, 1, 5);
+    // ---------------------------
+    const usersData = data;
     const [users, setUsers] = useState(usersData);
     // add user
     const addUser = user => {
@@ -40,39 +52,40 @@ const App = () => {
         setCurrentUser({ id: user.id, name: user.name, username: user.username })
     };
     const updateUser = (id, updatedUser) => {
-        setEditing(false)
+        setEditing(false);
 
         setUsers(users.map(user => (user.id === id ? updatedUser : user)));
-    }
-};
-  return (
-    <div className='container'>
-        <h1>CRUD App with Hooks</h1>
-        <div className='flex-row'>
-            <div className="flex-large">
-                {editing ? (
-                    <div>
-                        <h2>Edit user</h2>
-                        <EditUserForm
-                            editing={editing}
-                            setEditing={setEditing}
-                            currentUser={currentUser}
-                            updateUser={updateUser}
-                        />
+    };
+
+    return (
+        <div className='container'>
+            <h1>CRUD App with Hooks</h1>
+            <div className='flex-row'>
+                <div className="flex-small">
+                    {editing ? (
+                        <div>
+                            <h2>Edit user</h2>
+                            <EditUserForm
+                                editing={editing}
+                                setEditing={setEditing}
+                                currentUser={currentUser}
+                                updateUser={updateUser}
+                            />
+                        </div>
+                    ) : (
+                        <div>
+                            <h2>Add user</h2>
+                            <AddUserForm addUser={addUser} />
+                        </div>
+                    )}
+                    <div className='flex-small'>
+                        <h2>View user</h2>
+                        <UserTable users={users} deleteUser={deleteUser} editRow={editRow}/>
                     </div>
-                ) : (
-                    <div>
-                        <h2>Add user</h2>
-                        <AddUserForm addUser={addUser} />
-                    </div>
-                )}
-          <div className='flex-large'>
-            <h2>View user</h2>
-            <UserTable users={users} deleteUser={deleteUser} editRow={editRow}/>
-          </div>
+                </div>
+            </div>
         </div>
-    </div>
-  );
+    );
 }
 
 export default App;
