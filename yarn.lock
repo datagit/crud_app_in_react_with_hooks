@@ -7178,6 +7178,10 @@ react-error-overlay@^6.0.6:
   version "6.0.6"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.6.tgz#ac4d9dc4c1b5c536c2c312bf66aa2b09bfa384e2"
 
+react-hook-form@^4.9.6:
+  version "4.9.6"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-4.9.6.tgz#2057b4af7028f09d50c9bd1db46d1ff4e453c046"
+
 react-is@^16.8.1, react-is@^16.8.4:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
@@ -7240,6 +7244,13 @@ react-scripts@3.4.0:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
+
+react-validate-form@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-validate-form/-/react-validate-form-1.0.7.tgz#2939db5eea8cd41b2495bcc064e13fb463e2ac40"
+  dependencies:
+    lodash "^4.17.11"
+    rimraf "^2.6.3"
 
 react@^16.12.0:
   version "16.12.0"

@@ -9,7 +9,9 @@
     "faker": "^4.1.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.4.0"
+    "react-hook-form": "^4.9.6",
+    "react-scripts": "3.4.0",
+    "react-validate-form": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import UserTable from "../usertable/UserTable";
-import AddUserForm from "../adduserform/AddUserForm";
+import AddUserForm2 from "../adduserform/AddUserForm2";
 import EditUserForm from '../edituserform/EditUserForm';
 
 const App = () => {
@@ -54,7 +54,7 @@ const App = () => {
                     ) : (
                         <div>
                             <h2>Add user</h2>
-                            <AddUserForm addUser={addUser} />
+                            <AddUserForm2 addUser={addUser} />
                         </div>
                     )}
                     <div className='flex-small'>

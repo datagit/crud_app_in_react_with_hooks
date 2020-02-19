@@ -11,7 +11,11 @@ function generatorUsers(max) {
     // your schema
     const clientsSchema = {
         id: '{{random.number}}',
-        name: '{{name.findName}}',
+        first_name: '{{name.firstName}}',
+        last_name: '{{name.lastName}}',
+        suffix: '{{name.suffix}}',
+        avatar: '{{image.avatar}}',
+        email: '{{internet.email}}',
         username: '{{internet.userName}}'
     };
     // generate random clients between 5 and 20 units, based on client schema defined above
