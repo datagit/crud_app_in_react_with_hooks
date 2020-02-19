@@ -4,30 +4,9 @@ import UserTable from "../usertable/UserTable";
 import AddUserForm from "../adduserform/AddUserForm";
 import EditUserForm from '../edituserform/EditUserForm';
 
-
 const App = () => {
-    // ---------------------------
-    var faker = require('faker');
-    // random generator
-    const generator = (schema, min = 1, max) => {
-        max = max || min
-        return Array.from({ length: max }).map(() => Object.keys(schema).reduce((entity, key) => {
-            entity[key] = faker.fake(schema[key])
-            return entity
-        }, {}))
-    };
-
-    // your schema
-    const clientsSchema = {
-        id: '{{random.number}}',
-        name: '{{name.findName}}',
-        username: '{{internet.userName}}'
-    };
-
-    // generate random clients between 5 and 20 units, based on client schema defined above
-    const data = generator(clientsSchema, 1, 5);
-    // ---------------------------
-    const usersData = data;
+    let faker_factory = require('../../modules/faker_factory');
+    const usersData = faker_factory.generatorUsers(6);
     const [users, setUsers] = useState(usersData);
     // add user
     const addUser = user => {
