@@ -1,70 +1,78 @@
 import React, {useState} from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams
+} from "react-router-dom";
 import './App.css';
 import UserTable from "../usertable/UserTable";
 import AddUserForm2 from "../adduserform/AddUserForm2";
-import EditUserForm from '../edituserform/EditUserForm';
 
-const App = () => {
-    let faker_factory = require('../../modules/faker_factory');
-    const usersData = faker_factory.generatorUsers(6);
-    const [users, setUsers] = useState(usersData);
-    // add user
-    const addUser = user => {
-        user.id = users.length + 1;
-        setUsers([...users, user]);
-    };
-    // delete user
-    const deleteUser = id => {
-        setUsers(users.filter(user => user.id !== id));
-    };
-    // edit user
-    const [editing, setEditing] = useState(false);
-    const initialFormState = {
-        id: null,
-        name: '',
-        username: '',
-    };
-    const [currentUser, setCurrentUser] = useState(initialFormState);
-    const editRow = user => {
-        setEditing(true)
-
-        setCurrentUser({ id: user.id, name: user.name, username: user.username })
-    };
-    const updateUser = (id, updatedUser) => {
-        setEditing(false);
-
-        setUsers(users.map(user => (user.id === id ? updatedUser : user)));
-    };
-
+export default function App() {
     return (
-        <div className='container'>
-            <h1>CRUD App with Hooks</h1>
-            <div className='flex-row'>
-                <div className="flex-small">
-                    {editing ? (
-                        <div>
-                            <h2>Edit user</h2>
-                            <EditUserForm
-                                editing={editing}
-                                setEditing={setEditing}
-                                currentUser={currentUser}
-                                updateUser={updateUser}
-                            />
-                        </div>
-                    ) : (
-                        <div>
-                            <h2>Add user</h2>
-                            <AddUserForm2 addUser={addUser} />
-                        </div>
-                    )}
-                    <div className='flex-small'>
-                        <h2>View user</h2>
-                        <UserTable users={users} deleteUser={deleteUser} editRow={editRow}/>
-                    </div>
-                </div>
+        <Router>
+            <div className='container'>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/about/123">About</Link>
+                        </li>
+                        <li>
+                            <Link to="/users">Users</Link>
+                        </li>
+                    </ul>
+                </nav>
+
+                {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+                <Switch>
+
+                    <Route path="/users/edit/:user_id">
+                        <EditUser />
+                    </Route>
+                    <Route path="/users/add">
+                        <AddUser />
+                    </Route>
+                    <Route path="/users">
+                        <Users/>
+                    </Route>
+                    <Route path="/about/:param">
+                        <About />
+                    </Route>
+                    <Route path="/">
+                        <Home />
+                    </Route>
+
+                </Switch>
             </div>
-        </div>
+        </Router>
     );
 }
 
-export default App;
+function Home() {
+    return <h2>Home</h2>;
+}
+
+function About() {
+    let { param } = useParams();
+    return <h2>About {param}</h2>;
+}
+
+function EditUser() {
+    let { user_id } = useParams();
+    return <h2>EditUser {user_id}</h2>;
+}
+
+function AddUser() {
+    return <AddUserForm2 />;
+}
+
+function Users() {
+    return <UserTable/>;
+}
+

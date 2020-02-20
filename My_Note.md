@@ -7,6 +7,9 @@ ReactJS:
  - https://www.taniarascia.com/crud-app-in-react-with-hooks/
  - https://reactjs.org/
  - https://reactcheatsheet.com/
+Client-side form validation
+ - https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation
+
 Jest Test: https://jestjs.io/docs/en/getting-started
 Yarn Faker: 
  - http://marak.github.io/faker.js/

@@ -11,7 +11,9 @@ const AddUserForm2 = props => {
         email: '',
         username: '',
     };
-    const { register, handleSubmit, watch, errors, reset } = useForm();
+    const { register, handleSubmit, watch, errors, reset } = useForm({
+        defaultValues: props.currentUser,
+    });
     // debug field:
     console.log(watch('username')) // watch input value by passing the name of it
     console.log(watch('errors')) // watch input value by passing the name of it
@@ -21,6 +23,7 @@ const AddUserForm2 = props => {
         // call to add user into list users
         props.addUser(values);
         // reset form
+        reset(defaultValues);
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,8 +57,7 @@ const AddUserForm2 = props => {
                    })}
             />
             {errors.email && <label className='error'>invalid email</label>}
-            <button className='muted-button'>Add new user</button>
-            <button type="button" className='muted-button' onClick={() => reset({ defaultValues })}>Reset</button>
+            <button className='muted-button'>Add new user</button> <button type="button" className='muted-button' onClick={() => reset({ defaultValues })}>Reset</button>
         </form>
     );
 };
